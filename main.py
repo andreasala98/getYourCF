@@ -1,7 +1,6 @@
 import numpy as np
 
 
-
 vowels = "Aeiou"
 MtoN = {1: "A", 2: "B", 3:"C", 4:'D', 5:'E', 6:'H', 7:'L', 8:'M', 9:'P', 10:'R', 11:'S', 12:'T'}
 
@@ -29,14 +28,18 @@ def getCF():
     CF += str(MtoN[mob])
     if(sex=='F'): doB += 40
 
-    CF+=doB
+    CF+=str(doB)
   
     key_value = np.loadtxt("Codici_ITA.csv", delimiter=";", dtype=str)
     d = { k.upper():v for k,v in key_value }
 
-    print(d)
+    key_value2 = np.loadtxt("Codici_EXT.csv", delimiter=";", dtype=str)
+    d.update ({ k.upper():v for k,v in key_value2 })
+
 
     CF += str(d[pob.upper()])
+
+    print(CF)
 
 
     return 0
