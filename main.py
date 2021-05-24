@@ -1,21 +1,21 @@
-import pandas as pd
 import numpy as np
+
 
 
 vowels = "Aeiou"
 MtoN = {1: "A", 2: "B", 3:"C", 4:'D', 5:'E', 6:'H', 7:'L', 8:'M', 9:'P', 10:'R', 11:'S', 12:'T'}
-#MtoN={'A':1, 'B':2, 'C':3, 'D':4, 'E':5, 'H':6, 'L':'7', 'M':8, 'P':9, 'R':10, 'S':11, 'T':12}
 
 def getCF():
     CF=''
     name = input("Enter first name: ")
     surname = input("Enter last name: ")
+    sex = input("Enter F if you are female, otherwise any other letter:")
     yob = input("Enter year of birth: ")
     mob = int(input("Enter month of birth (in number): "))
     dob = input("Enter day of birth: ")
-    pob = input("Enter nation of birth:")
+    pob = input("Enter nation of birth: ")
     if (pob.lower()=="italy"):
-        pob = input("Enter city of birth:")
+        pob = input("Enter city of birth: ")
 
     CF += extractName(surname) + extractName(name)
     CF += ''.join(list(yob)[-2:])
@@ -24,19 +24,19 @@ def getCF():
         dob += '0'
         dob = dob[::-1]
 
-    CF += str(MtoN[mob]) + dob
+    doB = int(dob)
 
-    df = pd.read_csv("Codici_ITA.csv", sep=';')
+    CF += str(MtoN[mob])
+    if(sex=='F'): doB += 40
 
-    df.head()
+    CF+=doB
+  
+    key_value = np.loadtxt("Codici_ITA.csv", delimiter=";", dtype=str)
+    d = { k.upper():v for k,v in key_value }
 
-  #  with open('Codici_EXT.csv', mode='r') as infile:
-      #  reader = csv.reader(infile)
-      #  mydict.update( {rows[0].lower():rows[1] for rows in reader})
+    print(d)
 
-   # CF += str(mydict[pob])
-
-    print(CF)
+    CF += str(d[pob.upper()])
 
 
     return 0
