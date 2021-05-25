@@ -66,3 +66,7 @@ def extractName(name):
 
 if __name__ == "__main__":
     getCF()
+
+
+    def controlDigit(pCF):
+        return pCF
