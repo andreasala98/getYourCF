@@ -31,9 +31,6 @@ def inputs():
         pob = input("Città di nascita: ")
     data.append(pob)
 
-    if (data[2]!=('M'or'F')):
-        raise OutOfRangeError("Invalid gender!")
-
     if (int(data[3])>2021 or int(data[3])<1900):
         raise OutOfRangeError("Invalid year of birth!")
 

@@ -17,9 +17,11 @@ def getCF():
         dob += '0'
         dob = dob[::-1]
 
-    if(sex=='F'): dob += 40
+    dob_num = int(dob)
 
-    CF+=str(dob)
+    if(sex.upper()=='F'): dob_num += 40
+
+    CF+=str(dob_num)
   
     key_value = np.loadtxt("Codici_ITA.csv", delimiter=";", dtype=str)
     d = { k.upper():v for k,v in key_value }
@@ -27,23 +29,17 @@ def getCF():
     key_value2 = np.loadtxt("Codici_EXT.csv", delimiter=";", dtype=str)
     d.update ({ k.upper():v for k,v in key_value2 })
 
-    if not(pob in d):
-        bp='0000'
-    else:
-        bp = d[pob.upper()]
+    
+    bp = d[pob.upper()]
     
     CF += bp
   
-
-    CF+= controlDigit(CF)
+    CF += controlDigit(CF)
    
     return CF
 
 
 
 if __name__ == "__main__":
-    print("Hi, your fiscal code is")
+    print("## Fiscal Code Calculator ##")
     print(getCF())
-    window = tk.Tk()
-    greeting = tk.Label(text="Hello, Tkinter")
-    greeting.pack()
