@@ -20,8 +20,8 @@ Rem = {0: 'A', 1:'B', 2:'C', 3:'D', 4:'E', 5:'F', 6:'G', 7:'H', 8:'I', 9:'J', 10
 
 def inputs():
     data=[]
-    data.append( input("Nome: "))
-    data.append( input("Cognome: "))
+    data.append( input("Nome: ").replace(' ',''))
+    data.append(input("Cognome: ").replace(' ',''))
     data.append(input("Sesso (M/F): "))
     data.append(input("Anno di nascita: "))
     data.append(int(input("Mese di nascita (numero 1-12): ")))
@@ -31,7 +31,7 @@ def inputs():
         pob = input("Città di nascita: ")
     data.append(pob)
 
-    if (data[2]!=('M'or'F')):
+    if (data[2]!='M' and data[2]!='F'):
         raise OutOfRangeError("Invalid gender!")
 
     if (int(data[3])>2021 or int(data[3])<1900):
