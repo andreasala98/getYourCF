@@ -13,7 +13,7 @@ def getCF( inputData):
     pob = inputData[6]
 
 
-    CF = extractName(surname) + extractName(name)
+    CF = extractSurname(surname) + extractName(name)
     CF += ''.join(list(yob)[-2:])
     CF += str(MtoN[mob])
 
@@ -50,7 +50,7 @@ def getCF( inputData):
 
 if __name__ == "__main__":
 
-    print("Fiscal code calculator")
+    print("Calcolatore Codice Fiscale Italiano")
     inpData = inputs()
   
     CF = getCF(inpData)
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     if (CF==""):
         print("") 
     else:
-        print ("Your fiscal code is " + CF)
+        print ("Il tuo codice fiscale è " + CF)
     #window = tk.Tk()
     #greeting = tk.Label(text="Hello, Tkinter")
     #greeting.pack()

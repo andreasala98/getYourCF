@@ -66,6 +66,24 @@ def extractName(name):
         return ''.join(cons[:3])        
 
 
+def extractSurname(name):
+
+    if(len(name)<=3):
+        while(len(name)<3):
+          name += 'X'
+        return name.upper()
+
+    cons = [letter.upper() for letter in list(name) if letter.upper() not in vowels.upper()]
+
+    #print ("Cons: ", cons)
+    if (len(cons)>=3):
+        return ''.join([cons[0],cons[1],cons[2]])
+    else:
+        voc = [letter.upper() for letter in list(name) if letter.upper() in vowels.upper()]
+        cons += voc
+        return ''.join(cons[:3])        
+
+
 def controlDigit(pCF) ->str:
     evens = list(separateString(pCF))
     odds = list(separateString(pCF, get_even=False))
