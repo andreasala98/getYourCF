@@ -1,10 +1,17 @@
+"""
+Module that contains the Extractor class.
+"""
+
 import os
 import pathlib
 import numpy as np
-from exception import *
+from getmycf.exception import *
 
 
 class Extractor():
+    """
+    The class that does all the dirty work.
+    """
     def __init__(self,):
         self.CF = ''
 
@@ -12,28 +19,51 @@ class Extractor():
         self.name = input("Nome: ").replace(' ','')
         self.surname = input("Cognome: ").replace(' ','')
         self.sex = input("Sesso (M/F): ")
+        if self.sex not in ['M', 'F']:
+            raise OutOfRangeError("Invalid gender!")
         self.yob = int(input("Anno di nascita: "))
+        if not (1900 <= self.yob <= 2022):
+            raise OutOfRangeError("Invalid year of birth!")
         self.mob = int(input("Mese di nascita (numero 1-12): "))
+        if not (1 <= self.mob <= 12):
+            raise OutOfRangeError("Invalid month!")
         self.dob = int(input("Giorno di nascita: "))
+        if not (1 <= self.dob <= 31):
+            raise OutOfRangeError("Invalid day of birth!")
         self.pob = input("Stato in cui sei nato/a: ")
         if (self.pob.lower()=="italia"):
             self.pob = input("Città di nascita: ")
 
-        #checks 
-        if self.sex not in ['M', 'F']:
-            raise OutOfRangeError("Invalid gender!")
-      
-        if not (1900 <= self.yob <= 2022):
-            raise OutOfRangeError("Invalid year of birth!")
+    def parse_data_txt(self, txt_path):
+        with open(txt_path, 'r') as f:
 
-        if not (1 <= self.mob <= 12):
-            raise OutOfRangeError("Invalid month!")
+            lines = [l.strip() for l in f.readlines() if l[0] != '#' and l[0] != '\n']
+            assert 7<=len(lines)<=8, "Invalid file format!"
 
-        if not (1 <= self.dob <= 31):
-            raise OutOfRangeError("Invalid day of birth!")
+            self.name = lines[0].replace(' ','')
+            self.surname = lines[1].replace(' ','')
+            self.sex = lines[2]
+            if self.sex not in ['M', 'F']:
+                raise OutOfRangeError("Invalid gender!")
+            self.yob = int(lines[3])
+            if not (1900 <= self.yob <= 2022):
+                raise OutOfRangeError("Invalid year of birth!")
+            self.mob = int(lines[4])
+            if not (1 <= self.mob <= 12):
+                raise OutOfRangeError("Invalid month!")
+            self.dob = int(lines[5])
+            if not (1 <= self.dob <= 31):
+                raise OutOfRangeError("Invalid day of birth!")
+            self.pob = lines[6]
+            if self.pob.lower()=="italia":
+                self.pob = lines[7]
 
 
     def get_first_name(self,):
+        """
+        Returns three letters of the first name, according to the
+        Italian Fiscal Code rules.
+        """
         if(len(self.name)<=3):
             while(len(self.name)<3):
               self.name += 'X'
@@ -52,6 +82,10 @@ class Extractor():
     
 
     def get_last_name(self,):
+        """
+        Returns three letters of the last name, according to the
+        Italian Fiscal Code rules.
+        """
         if(len(self.surname)<=3):
             while(len(self.surname)<3):
               self.surname += 'X'
@@ -67,10 +101,14 @@ class Extractor():
 
 
     def get_birthdate(self,):
+        """
+        Returns the birthdate in the 
+        Italian Fiscal Code format.
+        """
         date = ''.join(list(str(self.yob))[-2:]) 
         date += month_to_number[self.mob]
         if(len(str(self.dob))==1):
-            self.dob += '0'
+            self.dob = int(str(self.dob)+ '0')
             self.dob = int(str(self.dob)[::-1])
         if self.sex=='F':
             self.dob += 40
@@ -79,6 +117,10 @@ class Extractor():
 
 
     def get_birthplace(self,):
+        """
+        Returns the birthplace in the 
+        Italian Fiscal Code format.
+        """
         data_dir = os.path.join(pathlib.Path(__file__).parent.parent.parent, 'data')
         ita = np.loadtxt(os.path.join(data_dir, "Codici_ITA.csv"), delimiter=";", dtype=str)
         ext = np.loadtxt(os.path.join(data_dir, "Codici_EXT.csv"), delimiter=";", dtype=str)
@@ -94,6 +136,9 @@ class Extractor():
 
 
     def get_control_digit(self,):
+        """
+        Returns the control digit of the Fiscal Code.
+        """
         evens = list(self.__sep_str__(self.CF))
         odds = list(self.__sep_str__(self.CF, get_even=False))
         score = 0
@@ -106,17 +151,23 @@ class Extractor():
         return str(remainder[score])
 
     @staticmethod
-    def __sep_str__(word, get_even=True):
+    def __sep_str__(word, get_even:bool=True):
+        """
+        Get only the odd or even digits of a string.
+
+        :param word: string to be separated
+        """
         lw=list(word)
-        if (get_even==True):
+        if get_even:
             del lw[::2]
-        elif(get_even==False):
+        else:
             del lw[1::2]
         return ''.join(lw)
 
-
     def run(self,):
-        self.parse_data()
+        """
+        Get all the pieces together and return the Fiscal Code.
+        """
         self.CF = self.get_last_name() + self.get_first_name()
         self.CF += self.get_birthdate() + self.get_birthplace()
         self.CF += self.get_control_digit()

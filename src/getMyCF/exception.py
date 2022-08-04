@@ -1,3 +1,9 @@
+"""
+This module defines the possible exceptions in 
+the execution of the code. 
+Moreover, it stores some useful reference dictionaries.
+"""
+
 class OutOfRangeError(Exception):
     def __init__(self, error_message):
         super().__init__(error_message)
