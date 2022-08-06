@@ -1,0 +1,14 @@
+LICENSE
+README.md
+setup.py
+src/getmycf/__init__.py
+src/getmycf/exception.py
+src/getmycf/main.py
+src/getmycf/runner.py
+src/getmycf.egg-info/PKG-INFO
+src/getmycf.egg-info/SOURCES.txt
+src/getmycf.egg-info/dependency_links.txt
+src/getmycf.egg-info/entry_points.txt
+src/getmycf.egg-info/not-zip-safe
+src/getmycf.egg-info/requires.txt
+src/getmycf.egg-info/top_level.txt
