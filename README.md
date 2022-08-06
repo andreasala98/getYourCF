@@ -8,3 +8,6 @@ The program still lacks a GUI, so if you want to use it just open a Terminal win
 python3 main.py
 ```
 Please raise issues or contact me for any major bug
+
+
+Work in progress... sometimes...
