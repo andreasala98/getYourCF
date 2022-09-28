@@ -1,3 +1,0 @@
-[console_scripts]
-getcf = getmycf.main:main
-
