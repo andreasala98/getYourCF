@@ -1,4 +1,4 @@
-from getmycf.runner import Extractor
+from getYourCF.runner import Extractor
 import argparse
 
 def print_intro():

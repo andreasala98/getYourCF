@@ -5,7 +5,7 @@ Module that contains the Extractor class.
 import os
 import pathlib
 import numpy as np
-from getmycf.exception import *
+from getYourCF.exception import *
 
 
 class Extractor():
@@ -14,6 +14,9 @@ class Extractor():
     """
     def __init__(self,):
         self.CF = ''
+
+    def __init__(self, cf):
+        self.CF = cf
 
     def parse_data(self,):
         self.name = input("Nome: ").replace(' ','')
