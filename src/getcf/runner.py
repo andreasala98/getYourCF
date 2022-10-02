@@ -5,7 +5,7 @@ Module that contains the Extractor class.
 import os
 import pathlib
 import numpy as np
-from getYourCF.exception import *
+from getcf.exception import *
 
 
 class Extractor():
