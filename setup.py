@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 import os
 import re
 
-PACKAGE = "getmycf"
+PACKAGE = "getcf"
 here = os.path.abspath(os.path.dirname(__file__))
 
 # Returns the version
@@ -37,7 +37,8 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     package_data={"": ["data/*.csv"]},
-    entry_points={'console_scripts': ['getcf = getmycf.main:main']},
+    entry_points={'console_scripts': ['getcf = getcf.main:main',
+                                     'getcf-reverse = getcf.main:reverse']},
     zip_safe=False,
     classifiers=[
         "Programming Language :: Python :: 3",

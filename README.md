@@ -1,5 +1,5 @@
-# getYourCF
-[![Apache License](https://img.shields.io/badge/License-DWTFYW-green.svg)](https://github.com/andreasala98/getYourCF/blob/master/LICENSE)
+# getCF
+[![Apache License](https://img.shields.io/badge/License-DWTFYW-green.svg)](https://github.com/andreasala98/getCF/blob/master/LICENSE)
 
 
 A simple exercise to retrieve the Italian Fiscal Code in python3.

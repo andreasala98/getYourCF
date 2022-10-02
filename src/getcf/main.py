@@ -1,4 +1,6 @@
-from getmycf.runner import Extractor
+from sympy import arg
+from getcf.runner import Extractor
+from getcf.reverse import is_valid
 import argparse
 
 def print_intro():
@@ -11,7 +13,7 @@ def print_intro():
 def main():
     print_intro()
 
-    parser = argparse.ArgumentParser(description="Get your Italian Fiscal Code")
+    parser = argparse.ArgumentParser('getcf', description="Get your Italian Fiscal Code")
     parser.add_argument("-i", "--input", type=str, required=False, help="Pass an input file with data")
 
     args = parser.parse_args()
@@ -25,6 +27,22 @@ def main():
     CF = ex.run()
 
     print("Il tuo codice fiscale è: {}".format(CF))
+
+def reverse():
+
+    parser = argparse.ArgumentParser('getcf-reverse', description='Validate a Fiscal Code')
+    parser.add_argument('fiscal_code', type=str,  help='Potential Fiscal Code to validate')
+
+    args = parser.parse_args()
+    ans = is_valid(args.fiscal_code)
+
+    if ans==True:
+        print("Codice Fiscale valido!")
+
+    else:
+        print("Codice Fiscale non valido")
+        print(f"[ Suspected error: {ans[1]} ]")
+
 
 if __name__ == '__main__':
 
