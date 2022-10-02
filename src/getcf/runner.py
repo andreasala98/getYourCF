@@ -12,10 +12,8 @@ class Extractor():
     """
     The class that does all the dirty work.
     """
-    def __init__(self,):
-        self.CF = ''
 
-    def __init__(self, cf):
+    def __init__(self, cf=''):
         self.CF = cf
 
     def parse_data(self,):
