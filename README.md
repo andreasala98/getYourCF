@@ -12,17 +12,23 @@ sudo pip3 install -e .
 ```
 
 ### Usage
-Type
+- Command Line Usage:
+```bash
+getcf
 ```
-getcf --help
+and then follow instructions
+
+- Input file usage:
+```bash
+getcf -i <path_to_file>
 ```
-to see all the available commands and options
+The program automatically recongnizes a json from other file formats. Example input files can be found [here](https://github.com/andreasala98/getCF/blob/master/data/example.json) and [here](https://github.com/andreasala98/getCF/blob/master/data/example.txt)
 
 ### Documentation
 Not ready yet, even though the docs website is up and running
 
 ### Contribute
-Please raise issues or contact me for any major bug
+Please raise issues or contact me or Matteo for any major bug
 
 
 Work in progress... sometimes...
