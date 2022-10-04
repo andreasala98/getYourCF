@@ -14,19 +14,20 @@ def main():
     print_intro()
 
     parser = argparse.ArgumentParser('getcf', description="Get your Italian Fiscal Code")
-    parser.add_argument("-i", "--input", type=str, required=False, help="Pass an input file with data")
+    parser.add_argument("-i", "--input-file", type=str, dest="inp",
+        required=False, help="Pass an input file with data")
 
     args = parser.parse_args()
 
     ex = Extractor()
 
-    if args.input:
-        ex.parse_data_txt(args.input)
+    if args.inp:
+        ex.parse_input_file(args.inp)
     else:
         ex.parse_data()
     CF = ex.run()
 
-    print("Il tuo codice fiscale è: {}".format(CF))
+    print("Il codice fiscale è: {}".format(CF))
 
 def reverse():
 
