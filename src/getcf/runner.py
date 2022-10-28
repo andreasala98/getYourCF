@@ -4,6 +4,7 @@ Module that contains the Extractor class.
 
 import os
 import pathlib
+import json
 import numpy as np
 from getcf.exception import *
 
@@ -35,7 +36,7 @@ class Extractor():
         if (self.pob.lower()=="italia"):
             self.pob = input("Città di nascita: ")
 
-    def parse_data_txt(self, txt_path):
+    def _parse_data_txt(self, txt_path):
         with open(txt_path, 'r') as f:
 
             lines = [l.strip() for l in f.readlines() if l[0] != '#' and l[0] != '\n']
@@ -58,6 +59,28 @@ class Extractor():
             self.pob = lines[6]
             if self.pob.lower()=="italia":
                 self.pob = lines[7]
+
+
+    def _parse_data_json(self, json_file):
+        
+        with open(json_file) as file:
+
+            d = json.load(file)
+
+            self.name = d["name"]
+            self.surname = d["surname"]
+            self.yob = d["year"]
+            self.mob = d["month"]
+            self.dob = d["day"]
+            self.sex = d["sex"]
+            self.pob = d["place"]
+
+    
+    def parse_input_file(self, input_file):
+        if len(input_file)>5 and input_file[-5:]=='.json':
+            self._parse_data_json(input_file)
+        else:
+            self._parse_data_txt(input_file)
 
 
     def get_first_name(self,):
@@ -151,6 +174,7 @@ class Extractor():
         score = int(score)%26
         return str(remainder[score])
 
+
     @staticmethod
     def __sep_str__(word, get_even:bool=True):
         """
@@ -164,6 +188,7 @@ class Extractor():
         else:
             del lw[1::2]
         return ''.join(lw)
+
 
     def run(self,):
         """
